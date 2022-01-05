@@ -4,6 +4,8 @@
   "description": "Inventory tracking web application for Shopify's Intern Challenge",
   "main": "index.js",
   "scripts": {
+    "build": "babel src --out-dir dist",
+    "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/eyskim/Inventorify/issues"
   },
-  "homepage": "https://github.com/eyskim/Inventorify#readme"
+  "homepage": "https://github.com/eyskim/Inventorify#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.7",
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.7"
+  }
 }
