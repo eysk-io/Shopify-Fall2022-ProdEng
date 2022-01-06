@@ -14,7 +14,6 @@ app.use(urlencoded({ extended: true }))
 app.use(morgan('dev'))
 
 app.get('/', (req, res) => {
-    console.log(__dirname)
     res.sendFile(path.join(__dirname, './views/index.html'))
 })
 
