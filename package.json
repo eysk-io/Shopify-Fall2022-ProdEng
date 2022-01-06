@@ -1,7 +1,7 @@
 {
   "name": "inventorify",
   "version": "1.0.0",
-  "description": "Inventory tracking web application for Shopify's Intern Challenge",
+  "description": "Inventory tracking web application for Shopify's Production Engineer Intern Challenge",
   "main": "index.js",
   "scripts": {
     "build": "babel src --out-dir dist --copy-files",
