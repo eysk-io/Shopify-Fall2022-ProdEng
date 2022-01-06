@@ -4,9 +4,10 @@ import { json, urlencoded } from 'body-parser'
 import morgan from 'morgan'
 import path from 'path'
 import itemRouter from './resources/item/item.router'
+import config from './config'
+import { connect } from './utils/db'
 
 export const app = express()
-const PORT = '3000'
 
 app.disable('x-powered-by')
 app.use(cors())
@@ -22,8 +23,9 @@ app.use('/api/item', itemRouter)
 
 export const startServer = async () => {
     try {
-        app.listen(PORT, () => {
-            console.log(`Running on http://localhost:${PORT}`)
+        await connect()
+        app.listen(config.port, () => {
+            console.log(`Running on http://localhost:${config.port}`)
         })
     } catch (e) {
         console.error(e)
