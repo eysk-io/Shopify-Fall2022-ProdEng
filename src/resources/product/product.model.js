@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const itemSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -42,6 +42,6 @@ const itemSchema = new mongoose.Schema({
 }, { timestamps: true }
 )
 
-itemSchema.index({ vendor: 1, name: 1 }, { unique: true })
+productSchema.index({ vendor: 1, name: 1 }, { unique: true })
 
-export const Item = mongoose.model('item', itemSchema)
+export const Product = mongoose.model('product', productSchema)

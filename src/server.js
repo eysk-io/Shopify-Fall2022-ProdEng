@@ -3,7 +3,7 @@ import cors from 'cors'
 import { json, urlencoded } from 'body-parser'
 import morgan from 'morgan'
 import path from 'path'
-import itemRouter from './resources/item/item.router'
+import productRouter from './resources/product/product.router'
 import config from './config'
 import { connect } from './utils/db'
 
@@ -19,7 +19,7 @@ app.get('/', (_req, res) => {
     res.sendFile(path.join(__dirname, './views/index.html'))
 })
 
-app.use('/api/item', itemRouter)
+app.use('/api/product', productRouter)
 
 export const startServer = async () => {
     try {

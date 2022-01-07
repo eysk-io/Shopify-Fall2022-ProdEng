@@ -1,14 +1,14 @@
 import { Router } from 'express'
-import controllers from './item.controllers'
+import controllers from './product.controllers'
 
 const router = Router()
 
-// /api/item
+// /api/product
 router.route('/')
     .get(controllers.getMany)
     .post(controllers.createOne)
 
-// /api/item/:id
+// /api/product/:id
 router.route('/:id')
     .get(controllers.getOne)
     .put(controllers.updateOne)

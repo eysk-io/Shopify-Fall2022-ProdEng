@@ -1,5 +1,19 @@
 const getOne = model => async (req, res) => {
-    return res.status(200).json({ data: "getOne" })
+    try {
+        const doc = await model
+            .findOne({ _id: req.params.id })
+            .lean()
+            .exec()
+
+        if (!doc) {
+            res.status(400).end()
+        }
+
+        res.status(200).json({ data: doc })
+    } catch (e) {
+        console.error(e)
+        res.status(400).end()
+    }
 }
 
 const getMany = model => async (req, res) => {

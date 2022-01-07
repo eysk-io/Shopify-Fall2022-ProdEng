@@ -1,10 +1,10 @@
-import { Item } from '../../../src/resources/item/item.model'
+import { Product } from '../../../src/resources/product/product.model'
 import mongoose from 'mongoose'
 
-describe('Item model', () => {
+describe('Product model', () => {
     describe('schema', () => {
         test('name', () => {
-            const name = Item.schema.obj.name
+            const name = Product.schema.obj.name
             expect(name).toEqual({
                 type: String,
                 required: true,
@@ -14,7 +14,7 @@ describe('Item model', () => {
         })
 
         test('description', () => {
-            const description = Item.schema.obj.description
+            const description = Product.schema.obj.description
             expect(description).toEqual({
                 type: String,
                 required: true,
@@ -23,12 +23,12 @@ describe('Item model', () => {
         })
 
         test('ratingScore', () => {
-            const ratingScore = Item.schema.obj.ratingScore
+            const ratingScore = Product.schema.obj.ratingScore
             expect(ratingScore).toEqual(Number)
         })
 
         test('category', () => {
-            const category = Item.schema.obj.category
+            const category = Product.schema.obj.category
             expect(category).toEqual({
                 type: String,
                 required: true,
@@ -44,7 +44,7 @@ describe('Item model', () => {
         })
 
         test('stock', () => {
-            const stock = Item.schema.obj.stock
+            const stock = Product.schema.obj.stock
             expect(stock).toEqual({
                 type: Number,
                 required: true
@@ -52,7 +52,7 @@ describe('Item model', () => {
         })
 
         test('vendor', () => {
-            const vendor = Item.schema.obj.vendor
+            const vendor = Product.schema.obj.vendor
             expect(vendor).toEqual({
                 type: mongoose.SchemaTypes.ObjectId,
                 ref: 'vendor',

@@ -1,7 +1,7 @@
-import controllers from '../../../src/resources/item/item.controllers'
+import controllers from '../../../src/resources/product/product.controllers'
 import { isFunction } from 'lodash'
 
-describe('Item controllers', () => {
+describe('Product controllers', () => {
     test('has all crud controllers', () => {
         const crud = [
             'getOne',
