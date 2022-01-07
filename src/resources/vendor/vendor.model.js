@@ -14,4 +14,6 @@ const vendorSchema = new mongoose.Schema({
     }
 })
 
+vendorSchema.index({ name: 1 }, { unique: true })
+
 export const Vendor = mongoose.model('vendor', vendorSchema)
