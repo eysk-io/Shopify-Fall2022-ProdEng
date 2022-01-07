@@ -1,4 +1,4 @@
-import { crudControllers } from '../../utils/crud'
+import { productCrudControllers } from '../../utils/crud/product'
 import { Product } from './product.model'
 
-export default crudControllers(Product)
+export default productCrudControllers(Product)

@@ -5,13 +5,13 @@ const router = Router()
 
 // /api/product
 router.route('/')
-    .get(controllers.getMany)
-    .post(controllers.createOne)
+    .get(controllers.getManyProducts)
+    .post(controllers.createOneProduct)
 
 // /api/product/:id
 router.route('/:id')
-    .get(controllers.getOne)
-    .put(controllers.updateOne)
-    .delete(controllers.removeOne)
+    .get(controllers.getOneProduct)
+    .put(controllers.updateOneProduct)
+    .delete(controllers.removeOneProduct)
 
 export default router
