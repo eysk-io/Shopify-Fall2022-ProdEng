@@ -31,11 +31,11 @@ export const getManyVendors = model => async (req, res) => {
 
 export const createOneVendor = model => async (req, res) => {
     try {
-        req.body.name = req.body.name.
-            toString().
-            toLowerCase().
-            trim().
-            replace(/ /g, '-')
+        req.body.name = req.body.name
+            .toString()
+            .toLowerCase()
+            .trim()
+            .replace(/ /g, '-')
 
         const doc = await model.create({ ...req.body })
         return res.status(201).json({ data: doc })
