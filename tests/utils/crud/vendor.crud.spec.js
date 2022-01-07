@@ -1,5 +1,8 @@
 import { Vendor } from '../../../src/resources/vendor/vendor.model'
-import { createOneVendor } from '../../../src/utils/crud/vendor'
+import {
+    createOneVendor,
+    getManyVendors
+} from '../../../src/utils/crud/vendor'
 import * as dbHandler from '../../mock-db.setup'
 
 describe('Vendor crud methods', () => {
@@ -64,6 +67,34 @@ describe('Vendor crud methods', () => {
 
             await createOneVendor(Vendor)(req, res)
             expect.assertions(2)
+        })
+    })
+
+    describe('getManyVendors', () => {
+        test('retrieves data for all vendors', async () => {
+            await Vendor.create([
+                { name: 'Test vendor0', description: 'my test vendor0' },
+                { name: 'Test vendor1', description: 'my test vendor1' },
+                { name: 'Test vendor2', description: 'my test vendor2' },
+            ])
+
+            const req = {}
+            const res = {
+                status(status) {
+                    expect(status).toBe(200)
+                    return this
+                },
+                json(result) {
+                    expect(result.data).toHaveLength(3)
+                    result.data.forEach((doc, index) => {
+                        expect(doc.name).toBe(`Test vendor${index}`)
+                        expect(doc.description).toBe(`my test vendor${index}`)
+                    })
+                }
+            }
+
+            await getManyVendors(Vendor)(req, res)
+            expect.assertions(8)
         })
     })
 })

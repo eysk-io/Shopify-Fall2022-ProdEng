@@ -2,8 +2,17 @@ const getOneVendor = model => (req, res) => {
     return res.status(200).json({ data: "getOneVendor" })
 }
 
-const getManyVendors = model => (req, res) => {
-    return res.status(200).json({ data: "getManyVendors" })
+export const getManyVendors = model => async (req, res) => {
+    try {
+        const docs = await model
+            .find({})
+            .lean()
+            .exec()
+        res.status(200).json({ data: docs })
+    } catch (e) {
+        console.error(e)
+        res.status(400).end()
+    }
 }
 
 export const createOneVendor = model => async (req, res) => {
