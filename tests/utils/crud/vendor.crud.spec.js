@@ -2,7 +2,8 @@ import { Vendor } from '../../../src/resources/vendor/vendor.model'
 import {
     createOneVendor,
     getManyVendors,
-    getOneVendor
+    getOneVendor,
+    updateOneVendor
 } from '../../../src/utils/crud/vendor'
 import * as dbHandler from '../../mock-db.setup'
 
@@ -145,6 +146,65 @@ describe('Vendor crud methods', () => {
             }
 
             await getOneVendor(Vendor)(req, res)
+            expect.assertions(2)
+        })
+    })
+
+    describe('updateOneVendor', () => {
+        test('finds vendor by name and updates it', async () => {
+            const vendor = await Vendor.create({
+                name: 'test-vendor',
+                description: 'my test vendor'
+            })
+
+            const update = {
+                name: 'updated-test-vendor',
+                description: 'my updated description'
+            }
+
+            const req = {
+                params: { vendorName: vendor.name },
+                body: update
+            }
+
+            const res = {
+                status(status) {
+                    expect(status).toBe(200)
+                    return this
+                },
+                json(results) {
+                    expect(`${results.data._id}`).toBe(`${vendor._id}`)
+                    expect(results.data.name).toBe(update.name)
+                    expect(results.data.description).toBe(update.description)
+                }
+            }
+
+            await updateOneVendor(Vendor)(req, res)
+            expect.assertions(4)
+        })
+
+        test('returns 400 if no vendor is found', async () => {
+            const update = {
+                name: 'updated-test-vendor',
+                description: 'my updated description'
+            }
+
+            const req = {
+                params: { vendorName: 'test-vendor' },
+                body: update
+            }
+
+            const res = {
+                status(status) {
+                    expect(status).toBe(400)
+                    return this
+                },
+                end() {
+                    expect(true).toBe(true)
+                }
+            }
+
+            await updateOneVendor(Vendor)(req, res)
             expect.assertions(2)
         })
     })
