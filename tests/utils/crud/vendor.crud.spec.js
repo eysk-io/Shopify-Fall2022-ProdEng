@@ -1,7 +1,8 @@
 import { Vendor } from '../../../src/resources/vendor/vendor.model'
 import {
     createOneVendor,
-    getManyVendors
+    getManyVendors,
+    getOneVendor
 } from '../../../src/utils/crud/vendor'
 import * as dbHandler from '../../mock-db.setup'
 
@@ -95,6 +96,55 @@ describe('Vendor crud methods', () => {
 
             await getManyVendors(Vendor)(req, res)
             expect.assertions(8)
+        })
+    })
+
+    describe('getOneVendor', () => {
+        test('retrieves one vendor', async () => {
+            const vendor = await Vendor.create({
+                name: 'Test vendor',
+                description: 'my test vendor'
+            })
+
+            const req = {
+                params: {
+                    vendorName: vendor.name
+                }
+            }
+
+            const res = {
+                status(status) {
+                    expect(status).toBe(200)
+                    return this
+                },
+                json(result) {
+                    expect(result.data._id.toString()).toBe(vendor._id.toString())
+                }
+            }
+
+            await getOneVendor(Vendor)(req, res)
+            expect.assertions(2)
+        })
+
+        test('returns 400 if no vendor is found', async () => {
+            const req = {
+                params: {
+                    vendorName: 'Test vendor'
+                }
+            }
+
+            const res = {
+                status(status) {
+                    expect(status).toBe(400)
+                    return this
+                },
+                end() {
+                    expect(true).toBe(true)
+                }
+            }
+
+            await getOneVendor(Vendor)(req, res)
+            expect.assertions(2)
         })
     })
 })
