@@ -67,8 +67,21 @@ export const updateOneVendor = model => async (req, res) => {
     }
 }
 
-const removeOneVendor = model => (req, res) => {
-    return res.status(200).json({ data: "removeOneVendor" })
+export const removeOneVendor = model => async (req, res) => {
+    try {
+        const removed = await model.findOneAndRemove({
+            name: req.params.vendorName
+        })
+
+        if (!removed) {
+            return res.status(400).end()
+        }
+
+        return res.status(200).json({ data: removed })
+    } catch (e) {
+        console.error(e)
+        res.status(400).end()
+    }
 }
 
 export const vendorCrudControllers = model => ({

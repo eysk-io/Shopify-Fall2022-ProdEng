@@ -3,7 +3,8 @@ import {
     createOneVendor,
     getManyVendors,
     getOneVendor,
-    updateOneVendor
+    updateOneVendor,
+    removeOneVendor
 } from '../../../src/utils/crud/vendor'
 import * as dbHandler from '../../mock-db.setup'
 
@@ -205,6 +206,51 @@ describe('Vendor crud methods', () => {
             }
 
             await updateOneVendor(Vendor)(req, res)
+            expect.assertions(2)
+        })
+    })
+
+    describe('removeOneVendor', () => {
+        test('removes vendor by name', async () => {
+            const vendor = await Vendor.create({
+                name: 'test-vendor',
+                description: 'my test vendor'
+            })
+
+            const req = {
+                params: {
+                    vendorName: 'test-vendor'
+                }
+            }
+
+            const res = {
+                status(status) {
+                    expect(status).toBe(200)
+                    return this
+                },
+                json(results) {
+                    expect(`${results.data._id}`).toBe(`${vendor._id}`)
+                }
+            }
+
+            await removeOneVendor(Vendor)(req, res)
+            expect.assertions(2)
+        })
+
+        test('returns 400 if no vendor is found', async () => {
+            const req = { params: 'test-vendor' }
+
+            const res = {
+                status(status) {
+                    expect(status).toBe(400)
+                    return this
+                },
+                end() {
+                    expect(true).toBe(true)
+                }
+            }
+
+            await removeOneVendor(Vendor)(req, res)
             expect.assertions(2)
         })
     })
