@@ -1,6 +1,6 @@
-export const getAllProducts = model => async (_req, res) => {
+export const getAllProducts = productModel => async (_req, res) => {
     try {
-        const doc = await model
+        const doc = await productModel
             .find({})
             .lean()
             .exec()
@@ -12,31 +12,56 @@ export const getAllProducts = model => async (_req, res) => {
     }
 }
 
-const getAllProductsByVendor = model => async (req, res) => {
-    return res.status(200).json({ data: "getAllProductsByVendor" })
+export const getAllProductsByVendor = (vendorModel, productModel) => async (req, res) => {
+    try {
+
+    } catch (e) {
+        console.error(e)
+        return res.status(400).end()
+    }
 }
 
-const getOneProduct = model => async (req, res) => {
-    return res.status(200).json({ data: "getOneProduct" })
+export const getOneProduct = (vendorModel, productModel) => async (req, res) => {
+    try {
+
+    } catch (e) {
+        console.error(e)
+        return res.status(400).end()
+    }
 }
 
-const createOneProduct = model => async (req, res) => {
-    return res.status(200).json({ data: "createOneProduct" })
+export const createOneProduct = (vendorModel, productModel) => async (req, res) => {
+    try {
+
+    } catch (e) {
+        console.error(e)
+        return res.status(400).end()
+    }
 }
 
-const updateOneProduct = model => async (req, res) => {
-    return res.status(200).json({ data: "updateOneProduct" })
+export const updateOneProduct = (vendorModel, productModel) => async (req, res) => {
+    try {
+
+    } catch (e) {
+        console.error(e)
+        return res.status(400).end()
+    }
 }
 
-const removeOneProduct = model => async (req, res) => {
-    return res.status(200).json({ data: "removeOneProduct" })
+export const removeOneProduct = (vendorModel, productModel) => async (req, res) => {
+    try {
+
+    } catch (e) {
+        console.error(e)
+        return res.status(400).end()
+    }
 }
 
-export const productCrudControllers = model => ({
-    getAllProducts: getAllProducts(model),
-    getAllProductsByVendor: getAllProductsByVendor(model),
-    getOneProduct: getOneProduct(model),
-    createOneProduct: createOneProduct(model),
-    updateOneProduct: updateOneProduct(model),
-    removeOneProduct: removeOneProduct(model)
+export const productCrudControllers = (vendorModel, productModel) => ({
+    getAllProducts: getAllProducts(productModel),
+    getAllProductsByVendor: getAllProductsByVendor(vendorModel, productModel),
+    getOneProduct: getOneProduct(vendorModel, productModel),
+    createOneProduct: createOneProduct(vendorModel, productModel),
+    updateOneProduct: updateOneProduct(vendorModel, productModel),
+    removeOneProduct: removeOneProduct(vendorModel, productModel)
 })
