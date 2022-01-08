@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
             'video games',
             'electronics',
             'clothing',
-            'uncategoried'
+            'uncategorized'
         ],
         default: 'uncategorized'
     },
