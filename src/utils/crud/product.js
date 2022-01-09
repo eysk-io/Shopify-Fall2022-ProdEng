@@ -50,6 +50,27 @@ export const getOneProduct = (vendorModel, productModel) => async (req, res) => 
 
 export const createOneProduct = (vendorModel, productModel) => async (req, res) => {
     try {
+        const vendorDoc = await vendorModel
+            .findOne({ name: req.params.vendorName })
+            .lean()
+            .exec()
+
+        if (!vendorDoc)
+            return res.status(400).end()
+
+        req.body.name = req.body.name
+            .toString()
+            .toLowerCase()
+            .trim()
+            .replace(/ /g, '-')
+
+        const doc = await productModel
+            .create({
+                vendor: req.params.vendorName,
+                ...req.body
+            })
+
+        return res.status(201).json({ data: doc })
 
     } catch (e) {
         console.error(e)
