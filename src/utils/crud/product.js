@@ -99,7 +99,50 @@ export const createOneProduct = (vendorModel, productModel) => async (req, res) 
 
 export const updateOneProduct = (vendorModel, productModel) => async (req, res) => {
     try {
+        let vendorDoc = await vendorModel
+            .findOne({ name: req.params.vendorName })
+            .lean()
+            .exec()
 
+        if (!vendorDoc)
+            return res.status(400).end()
+
+        req.body.vendor = req.body.vendor
+            .toString()
+            .toLowerCase()
+            .trim()
+            .replace(/ /g, '-')
+
+        vendorDoc = await vendorModel
+            .findOne({ name: req.body.vendor })
+            .lean()
+            .exec()
+
+        if (!vendorDoc)
+            return res.status(400).end()
+
+        req.body.name = req.body.name
+            .toString()
+            .toLowerCase()
+            .trim()
+            .replace(/ /g, '-')
+
+        const doc = await productModel
+            .findOneAndUpdate(
+                {
+                    name: req.params.productName,
+                    vendor: req.params.vendorName
+                },
+                req.body,
+                { new: true }
+            )
+            .lean()
+            .exec()
+
+        if (!doc)
+            return res.status(400).end()
+
+        return res.status(200).json({ data: doc })
     } catch (e) {
         console.error(e)
         return res.status(400).end()

@@ -5,7 +5,8 @@ import {
     getAllProductsByVendor,
     createOneProduct,
     getOneProduct,
-    removeOneProduct
+    removeOneProduct,
+    updateOneProduct
 } from '../../../src/utils/crud/product'
 import * as dbHandler from '../../mock-db.setup'
 
@@ -535,6 +536,166 @@ describe('Product crud methods', () => {
             }
 
             await removeOneProduct(Vendor, Product)(req, res)
+            expect.assertions(2)
+        })
+    })
+
+    describe('updateOneProduct', () => {
+        test('updates product', async () => {
+            const vendor = await Vendor.create({
+                name: 'test-vendor',
+                description: 'my test vendor'
+            })
+
+            const product = await Product.create(
+                {
+                    name: 'my-test-product',
+                    description: 'my test product',
+                    ratingScore: 0,
+                    numRatingScores: 0,
+                    price: 1.00,
+                    stock: 0,
+                    category: 'electronics',
+                    vendor: vendor.name
+                }
+            )
+
+            const update = {
+                name: 'My Test Product',
+                description: 'my new description',
+                ratingScore: 200,
+                numRatingScores: 20,
+                price: 2.00,
+                category: 'electronics',
+                stock: 2000,
+                vendor: vendor.name
+            }
+
+            const req = {
+                body: update,
+                params: {
+                    vendorName: vendor.name,
+                    productName: product.name
+                }
+            }
+
+            const res = {
+                status(status) {
+                    expect(status).toBe(200)
+                    return this
+                },
+                json(result) {
+                    expect(result.data.name).toBe('my-test-product')
+                    expect(result.data.description).toBe(update.description)
+                    expect(result.data.ratingScore).toBe(update.ratingScore)
+                    expect(result.data.numRatingScores).toBe(update.numRatingScores)
+                    expect(result.data.price).toBe(update.price)
+                    expect(result.data.category).toBe(update.category)
+                    expect(result.data.stock).toBe(update.stock)
+                    expect(result.data.vendor).toBe(update.vendor)
+                }
+            }
+
+            await updateOneProduct(Vendor, Product)(req, res)
+            expect.assertions(9)
+        })
+
+        test('returns 400 if vendor is not found', async () => {
+            const product = await Product.create(
+                {
+                    name: 'my-test-product',
+                    description: 'my test product',
+                    ratingScore: 0,
+                    numRatingScores: 0,
+                    price: 1.00,
+                    stock: 0,
+                    category: 'electronics',
+                    vendor: 'test-vendor'
+                }
+            )
+
+            const update = {
+                name: 'My Test Product',
+                description: 'my new description',
+                ratingScore: 200,
+                numRatingScores: 20,
+                price: 2.00,
+                category: 'electronics',
+                stock: 2000,
+                vendor: 'test-vendor'
+            }
+
+            const req = {
+                body: update,
+                params: {
+                    vendorName: 'test-vendor',
+                    productName: product.name
+                }
+            }
+
+            const res = {
+                status(status) {
+                    expect(status).toBe(400)
+                    return this
+                },
+                end() {
+                    expect(true).toBe(true)
+                }
+            }
+
+            await updateOneProduct(Vendor, Product)(req, res)
+            expect.assertions(2)
+        })
+
+        test('returns 400 if product is not found', async () => {
+            const vendor = await Vendor.create({
+                name: 'test-vendor',
+                description: 'my test vendor'
+            })
+
+            const product = await Product.create(
+                {
+                    name: 'my-test-product',
+                    description: 'my test product',
+                    ratingScore: 0,
+                    numRatingScores: 0,
+                    price: 1.00,
+                    stock: 0,
+                    category: 'electronics',
+                    vendor: vendor.name
+                }
+            )
+
+            const update = {
+                name: 'My Test Product',
+                description: 'my new description',
+                ratingScore: 200,
+                numRatingScores: 20,
+                price: 2.00,
+                category: 'electronics',
+                stock: 2000,
+                vendor: vendor.name
+            }
+
+            const req = {
+                body: update,
+                params: {
+                    vendorName: vendor.name,
+                    productName: 'no-product'
+                }
+            }
+
+            const res = {
+                status(status) {
+                    expect(status).toBe(400)
+                    return this
+                },
+                end() {
+                    expect(true).toBe(true)
+                }
+            }
+
+            await updateOneProduct(Vendor, Product)(req, res)
             expect.assertions(2)
         })
     })
