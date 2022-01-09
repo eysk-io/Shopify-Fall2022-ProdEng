@@ -14,7 +14,25 @@ export const getAllProducts = productModel => async (_req, res) => {
 
 export const getAllProductsByVendor = (vendorModel, productModel) => async (req, res) => {
     try {
+        const vendor = await vendorModel
+            .findOne({ name: req.params.vendorName })
+            .lean()
+            .exec()
 
+        if (!vendor) {
+            return res.status(400).end()
+        }
+
+        const doc = await productModel
+            .find({ vendor: req.params.vendorName })
+            .lean()
+            .exec()
+
+        if (!doc) {
+            return res.status(400).end()
+        }
+
+        return res.status(200).json({ data: doc })
     } catch (e) {
         console.error(e)
         return res.status(400).end()
