@@ -108,7 +108,23 @@ export const updateOneProduct = (vendorModel, productModel) => async (req, res) 
 
 export const removeOneProduct = (vendorModel, productModel) => async (req, res) => {
     try {
+        const vendorDoc = await vendorModel
+            .find({ name: req.params.vendorName })
+            .lean()
+            .exec()
 
+        if (!vendorDoc)
+            return res.status(400).end()
+
+        const removed = await productModel.findOneAndRemove({
+            name: req.params.productName,
+            vendor: req.params.vendorName
+        })
+
+        if (!removed)
+            return res.status(400).end()
+
+        return res.status(200).json({ data: removed })
     } catch (e) {
         console.error(e)
         return res.status(400).end()
