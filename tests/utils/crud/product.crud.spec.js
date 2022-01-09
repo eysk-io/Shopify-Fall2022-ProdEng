@@ -3,7 +3,8 @@ import { Vendor } from '../../../src/resources/vendor/vendor.model'
 import {
     getAllProducts,
     getAllProductsByVendor,
-    createOneProduct
+    createOneProduct,
+    getOneProduct
 } from '../../../src/utils/crud/product'
 import * as dbHandler from '../../mock-db.setup'
 
@@ -285,6 +286,130 @@ describe('Product crud methods', () => {
             }
 
             await createOneProduct(Vendor, Product)(req, res)
+            expect.assertions(2)
+        })
+    })
+
+    describe('getOneProduct', () => {
+        test('retrieves one product by vendor and product names', async () => {
+            const vendor = await Vendor.create({
+                name: 'test-vendor',
+                description: 'my test vendor'
+            })
+
+            const product = await Product.create(
+                {
+                    name: 'my-test-product',
+                    description: 'my test product0',
+                    ratingScore: 0,
+                    numRatingScores: 0,
+                    price: 1.00,
+                    stock: 0,
+                    category: 'electronics',
+                    vendor: vendor.name
+                }
+            )
+
+            const req = {
+                params: {
+                    vendorName: vendor.name,
+                    productName: product.name
+                }
+            }
+
+            const res = {
+                status(status) {
+                    expect(status).toBe(200)
+                    return this
+                },
+                json(result) {
+                    expect(result.data.name).toBe(product.name)
+                    expect(result.data.description).toBe(product.description)
+                    expect(result.data.ratingScore).toBe(product.ratingScore)
+                    expect(result.data.numRatingScores).toBe(product.numRatingScores)
+                    expect(result.data.price).toBe(product.price)
+                    expect(result.data.category).toBe(product.category)
+                    expect(result.data.stock).toBe(product.stock)
+                    expect(result.data.vendor).toBe(product.vendor)
+                }
+            }
+
+            await getOneProduct(Vendor, Product)(req, res)
+            expect.assertions(9)
+        })
+
+        test('returns 400 if vendor is not found', async () => {
+            const product = await Product.create(
+                {
+                    name: 'my-test-product',
+                    description: 'my test product0',
+                    ratingScore: 0,
+                    numRatingScores: 0,
+                    price: 1.00,
+                    stock: 0,
+                    category: 'electronics',
+                    vendor: 'my-test-vendor'
+                }
+            )
+
+            const req = {
+                params: {
+                    vendorName: product.vendor,
+                    productName: product.name
+                }
+            }
+
+            const res = {
+                status(status) {
+                    expect(status).toBe(400)
+                    return this
+                },
+                end() {
+                    expect(true).toBe(true)
+                }
+            }
+
+            await getOneProduct(Vendor, Product)(req, res)
+            expect.assertions(2)
+        })
+
+        test('returns 400 if product is not found', async () => {
+            const vendor = await Vendor.create({
+                name: 'test-vendor',
+                description: 'my test vendor'
+            })
+
+            const product = await Product.create(
+                {
+                    name: 'my-test-product',
+                    description: 'my test product0',
+                    ratingScore: 0,
+                    numRatingScores: 0,
+                    price: 1.00,
+                    stock: 0,
+                    category: 'electronics',
+                    vendor: vendor.name
+                }
+            )
+
+            const req = {
+                params: {
+                    vendorName: product.vendor,
+                    productName: 'no-product'
+                }
+            }
+
+            const res = {
+                status(status) {
+                    expect(status).toBe(400)
+                    return this
+                },
+                end() {
+                    expect(true).toBe(true)
+                }
+            }
+
+            await getOneProduct(Vendor, Product)(req, res)
             expect.assertions(2)
         })
     })
