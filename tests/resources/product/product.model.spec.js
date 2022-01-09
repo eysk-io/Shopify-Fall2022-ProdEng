@@ -54,7 +54,7 @@ describe('Product model', () => {
         test('vendor', () => {
             const vendor = Product.schema.obj.vendor
             expect(vendor).toEqual({
-                type: mongoose.SchemaTypes.ObjectId,
+                type: String,
                 ref: 'vendor',
                 required: true
             })

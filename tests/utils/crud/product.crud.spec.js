@@ -30,7 +30,7 @@ describe('Product crud methods', () => {
                     numRatingScores: 0,
                     price: 1.00,
                     stock: 0,
-                    vendor: vendor._id
+                    vendor: vendor.name
                 },
                 {
                     name: 'test-product1',
@@ -39,7 +39,7 @@ describe('Product crud methods', () => {
                     numRatingScores: 10,
                     price: 2.10,
                     stock: 1000,
-                    vendor: vendor._id
+                    vendor: vendor.name
                 },
                 {
                     name: 'test-product2',
@@ -48,7 +48,7 @@ describe('Product crud methods', () => {
                     numRatingScores: 20,
                     price: 3.20,
                     stock: 2000,
-                    vendor: vendor._id
+                    vendor: vendor.name
                 }
             ])
 
@@ -68,7 +68,7 @@ describe('Product crud methods', () => {
                         expect(doc.price).toBe(index * 1.1 + 1)
                         expect(doc.category).toBe('uncategorized')
                         expect(doc.stock).toBe(index * 1000)
-                        expect(doc.vendor.toString()).toBe(vendor._id.toString())
+                        expect(doc.vendor.toString()).toBe(vendor.name.toString())
                     })
                 }
             }

@@ -35,7 +35,7 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     vendor: {
-        type: mongoose.SchemaTypes.ObjectId,
+        type: String,
         ref: 'vendor',
         required: true
     }
