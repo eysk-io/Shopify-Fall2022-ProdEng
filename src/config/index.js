@@ -16,7 +16,7 @@ switch (env) {
     case 'dev':
     case 'development':
     default:
-        config.dbUrl = 'mongodb://localhost:27017/dev'
+        config.dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/dev'
 }
 
 export default config
