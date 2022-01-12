@@ -7,6 +7,7 @@ import productRouter from './resources/product/product.router'
 import vendorRouter from './resources/vendor/vendor.router'
 import config from './config'
 import { connect } from './utils/db'
+import { addSampleVendors } from './utils/add_sample_vendors'
 
 export const app = express()
 
@@ -26,6 +27,10 @@ app.use('/api/vendor', vendorRouter)
 export const startServer = async () => {
     try {
         await connect()
+
+        // sample vendors added for demo-purposes
+        await addSampleVendors()
+
         app.listen(config.port, () => {
             console.log(`Running on http://localhost:${config.port}`)
         })
