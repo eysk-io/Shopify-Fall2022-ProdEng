@@ -13,6 +13,7 @@ A local installation of `MongoDB` is required for building and running the progr
 From the root of the project, run:
 
 ```shell
+sudo mongod
 npm install
 npm run dev
 ```
