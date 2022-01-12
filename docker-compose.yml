@@ -3,13 +3,14 @@ services:
   web:
     build: .
     ports:
-      - "3000:3000"
+      - "4000:4000"
     volumes:
       - .:/home/node/code
       - /home/node/code/node_modules
     links:
       - db
     environment:
-      MONGO_URI: mongodb://db:27017
+      MONGO_DB_URI: mongodb://db:27017
+      PORT: 4000
   db:
     image: mongo:5

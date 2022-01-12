@@ -8,7 +8,7 @@ let config = {
 switch (env) {
     case 'prod':
     case 'production':
-        config.dbUrl = process.env.MONGO_URI
+        config.dbUrl = process.env.MONGO_DB_URI
     case 'test':
     case 'testing':
         config.dbUrl = 'mongodb://localhost:27017/test'
@@ -16,7 +16,7 @@ switch (env) {
     case 'dev':
     case 'development':
     default:
-        config.dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/dev'
+        config.dbUrl = process.env.MONGO_DB_URI || 'mongodb://localhost:27017/dev'
 }
 
 export default config

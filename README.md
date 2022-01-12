@@ -28,7 +28,7 @@ From the root of the project, run:
 docker-compose up
 ```
 
-The program will run on http://localhost:3000.
+The program will run on http://localhost:4000.
 
 ### Testing
 
