@@ -1,3 +1,5 @@
+<!-- Client code derived from:
+    https://medium.com/@etiennerouzeaud/a-simple-crud-application-with-javascript-ebc82f688c59 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +7,255 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventorify</title>
+    <style>
+        input[type='submit'], button, [aria-label]{
+            cursor: pointer;
+        }
+        #spoiler{
+            display: none;
+        }
+        #add-product-form, #save-edit{
+            display: flex;
+            flex-direction: column;
+            width: 150px;
+        }
+        *{
+            margin: 2px;
+        }
+        td{
+            padding: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Home page</h1>
+    <p style="font-weight: bold;">Note that opening this page will automatically add sample vendors to the database.</p>
+    <h1>All Products In Database:</h1>
+    
+    <div id="spoiler" role="aria-hidden">
+        <form action="javascript:void(0)" method="POST" id="save-edit">
+            <input type="text" id="edit-product-name" placeholder="Name">
+            <input type="text" id="edit-product-description" placeholder="Description">
+            <input list="edit-categories" id="edit-product-category" placeholder="Category">
+            <datalist id="edit-categories">
+                <option value="books">
+                <option value="video games">
+                <option value="electronics">
+                <option value="clothing">
+                <option value="uncategorized">
+            </datalist>
+            <input type="number" step="0.01" id="edit-product-price" placeholder="Price per Item ($)">
+            <input type="number" id="edit-product-units" placeholder="Units">
+            <input list="vendors" id="edit-product-vendor" placeholder="Vendor">
+            <datalist id="edit-vendors">
+            </datalist>
+            <input type="submit" value="Edit" />
+                <a onclick="closeInput()" aria-label="close">
+                    &#10006;
+                </a>
+        </form>
+    </div>
+
+    <table border=1 frame=void rules=all>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Num. in Stock</th>
+            <th>Vendor</th>
+        </tr>
+        <tbody id="inventory">
+        </tbody>
+    </table>
+
+    <h2>Add products to inventory:</h2>
+    <form action="javascript:void(0)" method="POST" onSubmit="addProduct()" id="add-product-form">
+        <input type="text" id="add-product-name" placeholder="Name">
+        <input type="text" id="add-product-description" placeholder="Description">
+        <input list="categories" id="add-product-category" placeholder="Category">
+        <datalist id="categories">
+            <option value="books">
+            <option value="video games">
+            <option value="electronics">
+            <option value="clothing">
+            <option value="uncategorized">
+        </datalist>
+        <input type="number" step="0.01" id="add-product-price" placeholder="Price per Item ($)">
+        <input type="number" id="add-product-units" placeholder="Units">
+        <input list="vendors" id="add-product-vendor" placeholder="Vendor">
+            <datalist id="vendors">
+            </datalist>
+        <input type="submit" value="Create Item">
+    </form>
+
+    <script>
+        fetch(`${window.location.origin}/api/product`)
+            .then(res => {
+                return res.json()
+            })
+            .then(res => {
+                getAllProducts(res.data)
+            })
+        
+        fetch(`${window.location.origin}/api/vendor`)
+            .then(res => {
+                return res.json()
+            })
+            .then(res => {
+                getAllAddVendors(res.data)
+                getAllEditVendors(res.data)
+            })
+        
+        function getAllProducts(products) {
+            let el = document.getElementById('inventory')
+            let data = ''
+            if (products.length > 0) {
+                for (i = 0; i < products.length > 0; i++) {
+                    data += '<tr>'
+                    data += '<td>' + products[i].name + '</td>'
+                    data += '<td>' + products[i].description + '</td>'
+                    data += '<td>' + products[i].category + '</td>'
+                    data += '<td>' + products[i].price + '</td>'
+                    data += '<td>' + products[i].stock + '</td>'
+                    data += '<td>' + products[i].vendor + '</td>'
+                    data += '<td><button onclick="editProduct(' + i + ', \''
+                        + products[i].name + '\', \''
+                        + products[i].description + '\', \''
+                        + products[i].category + '\', \''
+                        + products[i].price + '\', \''
+                        + products[i].stock + '\', \''
+                        + products[i].vendor + '\''
+                        + ')">Edit</button></td>'
+                    data += '<td><button onclick="deleteProduct(' + i + ', \'' 
+                        + products[i].name + '\', \''
+                        + products[i].vendor + '\''
+                        + ')">Delete</button></td>'
+                    data += '</tr>'
+                }
+            }
+            return el.innerHTML = data
+        }
+
+        function getAllAddVendors(vendors) {
+            let el = document.getElementById('vendors')
+            let data = ''
+            if (vendors.length > 0) {
+                for (i = 0; i < vendors.length > 0; i++) {
+                    data += `<option value="${vendors[i].name}">` 
+                }
+            }
+            return el.innerHTML = data
+        }
+
+        function getAllEditVendors(vendors) {
+            let el = document.getElementById('edit-vendors')
+            let data = ''
+            if (vendors.length > 0) {
+                for (i = 0; i < vendors.length > 0; i++) {
+                    data += `<option value="${vendors[i].name}">` 
+                }
+            }
+            return el.innerHTML = data
+        }
+
+        function editProduct(
+            item, 
+            name,
+            description,
+            category,
+            price,
+            stock,
+            vendor
+        ) {
+            let nameEl = document.getElementById('edit-product-name')
+            let descEl = document.getElementById('edit-product-description')
+            let catEl = document.getElementById('edit-product-category')
+            let priceEl = document.getElementById('edit-product-price')
+            let unitsEl = document.getElementById('edit-product-units')
+            let vendorEl = document.getElementById('edit-product-vendor')
+            nameEl.value = name
+            descEl.value = description
+            priceEl.value = price
+            unitsEl.value = stock
+
+            document.getElementById('spoiler').style.display = 'block'
+
+            document.getElementById('save-edit').onsubmit = function() {
+                const data = {
+                    name: nameEl.value,
+                    description: descEl.value,
+                    price: priceEl.value,
+                    category: catEl.value,
+                    stock: unitsEl.value,
+                    vendor: vendorEl.value
+                }
+                fetch(`${window.location.origin}/api/product/${vendor}/${name}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })            
+                .then(res => {
+                    window.location.reload()
+                })
+                .catch(error => {
+                    console.error('There was an error!', error)
+                })
+            }
+        }
+
+        function deleteProduct(item, name, vendor) {
+            fetch(`${window.location.origin}/api/product/${vendor}/${name}`, {
+                method: 'DELETE'
+            })
+            .then(res => {
+                window.location.reload()
+            })
+            .catch(error => {
+                console.error('There was an error!', error)
+            })
+            getAllProducts(products)
+        }
+
+        function addProduct() {
+            const name = document.getElementById('add-product-name').value
+            const description = document.getElementById('add-product-description').value
+            const category = document.getElementById('add-product-category').value
+            const price = document.getElementById('add-product-price').value
+            const stock = document.getElementById('add-product-units').value
+            const vendor = document.getElementById('add-product-vendor').value
+
+            const data = {
+                name: name,
+                description: description,
+                ratingScore: 0,
+                numRatingScores: 0,
+                price: price,
+                category: category,
+                stock: stock
+            }
+
+            fetch(`${window.location.origin}/api/product/${vendor}`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => {
+                window.location.reload()
+            })
+            .catch(error => {
+                console.error('There was an error!', error)
+            })
+        }
+
+        function closeInput() {
+            document.getElementById('spoiler').style.display = 'none'
+        }
+    </script>
 </body>
 </html>
