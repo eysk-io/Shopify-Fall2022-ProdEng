@@ -1,6 +1,6 @@
-# Inventorify: Shopify Production Engineering Technical Challenge
+# Inventorify - Shopify Intern Technical Challenge
 
-My submission for the [Shopify Production Engineering Technical Challenge](https://docs.google.com/document/d/1wir0XQuviR6p-uNEUPzsGvMFwqgMsY8sEjGUx74lNrg/edit).
+My submission for the Shopify [Production Engineer](https://docs.google.com/document/d/1wir0XQuviR6p-uNEUPzsGvMFwqgMsY8sEjGUx74lNrg/edit) and [Backend Developer](https://docs.google.com/document/d/1z9LZ_kZBUbg-O2MhZVVSqTmvDko5IJWHtuFmIu_Xg1A/edit) technical challenges. 
 
 ## Getting Started
 
