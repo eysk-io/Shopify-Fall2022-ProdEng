@@ -29,7 +29,9 @@
 </head>
 <body>
     <p style="font-weight: bold;">Note that opening this page will automatically add sample vendors to the database.</p>
-    <h1>All Products In Database:</h1>
+    <h1>All Products In Database
+        <a href="/api/product" target="_blank">(/api/product)</a>:
+    </h1>
     
     <div id="spoiler" role="aria-hidden">
         <form action="javascript:void(0)" method="POST" id="save-edit">
@@ -130,6 +132,11 @@
                         + products[i].name + '\', \''
                         + products[i].vendor + '\''
                         + ')">Delete</button></td>'
+                    data += '<td>' + 
+                        `<a href=/api/product/${products[i].vendor}/${products[i].name} target="_blank">` + 
+                        `<p>/api/product/${products[i].vendor}/${products[i].name}</p>` + 
+                        `<a/>` + 
+                        '</td>'
                     data += '</tr>'
                 }
             }
