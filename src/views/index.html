@@ -32,6 +32,7 @@
     <h1>All Products In Database
         <a href="/api/product" target="_blank">(/api/product)</a>:
     </h1>
+    <button onClick="downloadCSV()">Export to CSV</button>
     
     <div id="spoiler" role="aria-hidden">
         <form action="javascript:void(0)" method="POST" id="save-edit">
@@ -262,6 +263,33 @@
 
         function closeInput() {
             document.getElementById('spoiler').style.display = 'none'
+        }
+
+        function downloadCSV() {
+            fetch(`${window.location.origin}/api/product`)
+                .then(res => res.json())
+                .then(json => {
+                    const data = json.data
+                    const setVal = (key, val) => (
+                        val === null ? '' : val
+                    )
+                    const headerFields = Object.keys(data[0])
+                    let csv = [
+                        headerFields.join(','),
+                        ...
+                        data.map(row =>(
+                            headerFields.map(field => (
+                                JSON.stringify(row[field], setVal)
+                            ))
+                        ))
+                    ].join('\r\n')
+                    console.log(csv)
+
+                    const download = document.createElement('a')
+                    download.setAttribute('href', `data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`)
+                    download.setAttribute('download', 'product_data.csv')
+                    download.click()
+                })
         }
     </script>
 </body>
