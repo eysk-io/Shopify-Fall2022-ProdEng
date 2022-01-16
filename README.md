@@ -53,7 +53,7 @@ Retrieves a list of all inventory items.
 #### GET /api/product/:vendorName
 Retrieves a list of all inventory items of a specific vendor.
 
-#### POST /api/product/:vendorName
+#### POST /api/product/:vendorName/:productName
 Creates a new inventory item for a specific vendor.
 
 #### GET /api/product/:vendorName/:productName
