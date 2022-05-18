@@ -21,6 +21,14 @@ describe('Product model', () => {
             })
         })
 
+        test('price', () => {
+            const price = Product.schema.obj.price
+            expect(price).toEqual({
+                type: Number,
+                required: true
+            })
+        })
+
         test('stock', () => {
             const stock = Product.schema.obj.stock
             expect(stock).toEqual({
