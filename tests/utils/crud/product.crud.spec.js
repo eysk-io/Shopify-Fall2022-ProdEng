@@ -27,24 +27,18 @@ describe('Product crud methods', () => {
                 {
                     name: 'test-product0',
                     description: 'my test product0',
-                    ratingScore: 0,
-                    numRatingScores: 0,
                     price: 1.00,
                     stock: 0,
                 },
                 {
                     name: 'test-product1',
                     description: 'my test product1',
-                    ratingScore: 100,
-                    numRatingScores: 10,
                     price: 2.10,
                     stock: 1000,
                 },
                 {
                     name: 'test-product2',
                     description: 'my test product2',
-                    ratingScore: 200,
-                    numRatingScores: 20,
                     price: 3.20,
                     stock: 2000,
                 }
@@ -61,8 +55,6 @@ describe('Product crud methods', () => {
                     result.data.forEach((doc, index) => {
                         expect(doc.name).toBe(`test-product${index}`)
                         expect(doc.description).toBe(`my test product${index}`)
-                        expect(doc.ratingScore).toBe(index * 100)
-                        expect(doc.numRatingScores).toBe(index * 10)
                         expect(doc.price).toBe(index * 1.1 + 1)
                         expect(doc.category).toBe('uncategorized')
                         expect(doc.stock).toBe(index * 1000)
@@ -73,7 +65,7 @@ describe('Product crud methods', () => {
             await getAllProducts(Product)(req, res)
 
             const numProducts = 3
-            const numProperties = 7
+            const numProperties = 5
             expect.assertions(numProducts * numProperties + 2)
         })
     })
@@ -84,8 +76,6 @@ describe('Product crud methods', () => {
                 body: {
                     name: 'My Test Product',
                     description: 'my test product',
-                    ratingScore: 100,
-                    numRatingScores: 10,
                     price: 1.00,
                     category: 'electronics',
                     stock: 1000
@@ -100,8 +90,6 @@ describe('Product crud methods', () => {
                 json(result) {
                     expect(result.data.name).toBe('my-test-product')
                     expect(result.data.description).toBe(req.body.description)
-                    expect(result.data.ratingScore).toBe(req.body.ratingScore)
-                    expect(result.data.numRatingScores).toBe(req.body.numRatingScores)
                     expect(result.data.price).toBe(req.body.price)
                     expect(result.data.category).toBe(req.body.category)
                     expect(result.data.stock).toBe(req.body.stock)
@@ -109,7 +97,7 @@ describe('Product crud methods', () => {
             }
 
             await createOneProduct(Product)(req, res)
-            expect.assertions(8)
+            expect.assertions(6)
         })
 
         test('returns 400 if product already exists', async () => {
@@ -117,8 +105,6 @@ describe('Product crud methods', () => {
                 {
                     name: 'my-test-product',
                     description: 'my test product0',
-                    ratingScore: 0,
-                    numRatingScores: 0,
                     price: 1.00,
                     stock: 0,
                 }
@@ -128,8 +114,6 @@ describe('Product crud methods', () => {
                 body: {
                     name: 'My Test Product',
                     description: 'my test product',
-                    ratingScore: 100,
-                    numRatingScores: 10,
                     price: 1.00,
                     category: 'electronics',
                     stock: 1000
@@ -157,8 +141,6 @@ describe('Product crud methods', () => {
                 {
                     name: 'my-test-product',
                     description: 'my test product0',
-                    ratingScore: 0,
-                    numRatingScores: 0,
                     price: 1.00,
                     stock: 0,
                     category: 'electronics',
@@ -177,8 +159,6 @@ describe('Product crud methods', () => {
                 json(result) {
                     expect(result.data.name).toBe(product.name)
                     expect(result.data.description).toBe(product.description)
-                    expect(result.data.ratingScore).toBe(product.ratingScore)
-                    expect(result.data.numRatingScores).toBe(product.numRatingScores)
                     expect(result.data.price).toBe(product.price)
                     expect(result.data.category).toBe(product.category)
                     expect(result.data.stock).toBe(product.stock)
@@ -186,7 +166,7 @@ describe('Product crud methods', () => {
             }
 
             await getOneProduct(Product)(req, res)
-            expect.assertions(8)
+            expect.assertions(6)
         })
 
         test('returns 400 if product is not found', async () => {
@@ -194,8 +174,6 @@ describe('Product crud methods', () => {
                 {
                     name: 'my-test-product',
                     description: 'my test product0',
-                    ratingScore: 0,
-                    numRatingScores: 0,
                     price: 1.00,
                     stock: 0,
                     category: 'electronics',
@@ -227,8 +205,6 @@ describe('Product crud methods', () => {
                 {
                     name: 'my-test-product',
                     description: 'my test product0',
-                    ratingScore: 0,
-                    numRatingScores: 0,
                     price: 1.00,
                     stock: 0,
                     category: 'electronics',
@@ -247,8 +223,6 @@ describe('Product crud methods', () => {
                 json(result) {
                     expect(result.data.name).toBe(product.name)
                     expect(result.data.description).toBe(product.description)
-                    expect(result.data.ratingScore).toBe(product.ratingScore)
-                    expect(result.data.numRatingScores).toBe(product.numRatingScores)
                     expect(result.data.price).toBe(product.price)
                     expect(result.data.category).toBe(product.category)
                     expect(result.data.stock).toBe(product.stock)
@@ -256,7 +230,7 @@ describe('Product crud methods', () => {
             }
 
             await removeOneProduct(Product)(req, res)
-            expect.assertions(8)
+            expect.assertions(6)
         })
 
         test('returns 400 if product is not found', async () => {
@@ -264,8 +238,6 @@ describe('Product crud methods', () => {
                 {
                     name: 'my-test-product',
                     description: 'my test product0',
-                    ratingScore: 0,
-                    numRatingScores: 0,
                     price: 1.00,
                     stock: 0,
                     category: 'electronics',
@@ -297,8 +269,6 @@ describe('Product crud methods', () => {
                 {
                     name: 'my-test-product',
                     description: 'my test product',
-                    ratingScore: 0,
-                    numRatingScores: 0,
                     price: 1.00,
                     stock: 0,
                     category: 'electronics',
@@ -308,8 +278,6 @@ describe('Product crud methods', () => {
             const update = {
                 name: 'My Test Product',
                 description: 'my new description',
-                ratingScore: 200,
-                numRatingScores: 20,
                 price: 2.00,
                 category: 'electronics',
                 stock: 2000,
@@ -328,8 +296,6 @@ describe('Product crud methods', () => {
                 json(result) {
                     expect(result.data.name).toBe('my-test-product')
                     expect(result.data.description).toBe(update.description)
-                    expect(result.data.ratingScore).toBe(update.ratingScore)
-                    expect(result.data.numRatingScores).toBe(update.numRatingScores)
                     expect(result.data.price).toBe(update.price)
                     expect(result.data.category).toBe(update.category)
                     expect(result.data.stock).toBe(update.stock)
@@ -337,7 +303,7 @@ describe('Product crud methods', () => {
             }
 
             await updateOneProduct(Product)(req, res)
-            expect.assertions(8)
+            expect.assertions(6)
         })
 
         test('returns 400 if product is not found', async () => {
@@ -345,8 +311,6 @@ describe('Product crud methods', () => {
                 {
                     name: 'my-test-product',
                     description: 'my test product',
-                    ratingScore: 0,
-                    numRatingScores: 0,
                     price: 1.00,
                     stock: 0,
                     category: 'electronics',
@@ -356,8 +320,6 @@ describe('Product crud methods', () => {
             const update = {
                 name: 'My Test Product',
                 description: 'my new description',
-                ratingScore: 200,
-                numRatingScores: 20,
                 price: 2.00,
                 category: 'electronics',
                 stock: 2000,

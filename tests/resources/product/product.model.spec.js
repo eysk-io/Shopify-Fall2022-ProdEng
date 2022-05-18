@@ -21,27 +21,6 @@ describe('Product model', () => {
             })
         })
 
-        test('ratingScore', () => {
-            const ratingScore = Product.schema.obj.ratingScore
-            expect(ratingScore).toEqual(Number)
-        })
-
-        test('category', () => {
-            const category = Product.schema.obj.category
-            expect(category).toEqual({
-                type: String,
-                required: true,
-                enum: [
-                    'books',
-                    'video games',
-                    'electronics',
-                    'clothing',
-                    'uncategorized'
-                ],
-                default: 'uncategorized'
-            })
-        })
-
         test('stock', () => {
             const stock = Product.schema.obj.stock
             expect(stock).toEqual({
