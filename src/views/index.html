@@ -68,6 +68,7 @@
             <th>City</th>
             <th>Price</th>
             <th>Num. in Stock</th>
+            <th>Weather</th>
         </tr>
         <tbody id="inventory">
         </tbody>
@@ -110,12 +111,14 @@
                     data += '<td>' + products[i].city + '</td>'
                     data += '<td>' + products[i].price + '</td>'
                     data += '<td>' + products[i].stock + '</td>'
+                    data += '<td>' + products[i].weather + '</td>'
                     data += '<td><button onclick="editProduct(' + i + ', \''
                         + products[i].name + '\', \''
                         + products[i].description + '\', \''
                         + products[i].city + '\', \''
                         + products[i].price + '\', \''
-                        + products[i].stock + '\''
+                        + products[i].stock + '\', \''
+                        + products[i].weather + '\''
                         + ')">Edit</button></td>'
                     data += '<td><button onclick="deleteProduct(' + i + ', \''
                         + products[i].name + '\''
