@@ -50,36 +50,14 @@ All `/api/product` routes can be found in the [product.router.js](https://github
 #### GET /api/product
 Retrieves a list of all inventory items.
 
-#### GET /api/product/:vendorName
-Retrieves a list of all inventory items of a specific vendor.
-
-#### POST /api/product/:vendorName/:productName
+#### POST /api/product
 Creates a new inventory item for a specific vendor.
 
-#### GET /api/product/:vendorName/:productName
+#### GET /api/product/:productName
 Retrieves a specific inventory item.
 
-#### PUT /api/product/:vendorName/:productName
+#### PUT /api/product/:productName
 Updates a specific inventory item.
 
-#### DELETE /api/product/:vendorName/:productName
+#### DELETE /api/product/:productName
 Deletes a specific inventory item.
-
-### Routes - /api/vendor
-
-All `/api/vendor` routes can be found in the [vendor.router.js](https://github.com/eyskim/Inventorify/blob/0f1a6a11f014057c31134cfd4075966c1b8ae856/src/resources/vendor/vendor.router.js) module within the source code.
-
-#### GET /api/vendor
-Retrieves a list of all vendors.
-
-#### POST /api/vendor
-Creates a new vendor.
-
-#### GET /api/vendor/:vendorName
-Retrieves a specific vendor.
-
-#### PUT /api/vendor/:vendorName
-Updates a specific vendor.
-
-#### DELETE /api/vendor/:vendorName
-Deletes a specific vendor.

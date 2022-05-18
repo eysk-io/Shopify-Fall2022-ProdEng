@@ -1,5 +1,4 @@
 import { Product } from '../../../src/resources/product/product.model'
-import mongoose from 'mongoose'
 
 describe('Product model', () => {
     describe('schema', () => {
@@ -47,15 +46,6 @@ describe('Product model', () => {
             const stock = Product.schema.obj.stock
             expect(stock).toEqual({
                 type: Number,
-                required: true
-            })
-        })
-
-        test('vendor', () => {
-            const vendor = Product.schema.obj.vendor
-            expect(vendor).toEqual({
-                type: String,
-                ref: 'vendor',
                 required: true
             })
         })

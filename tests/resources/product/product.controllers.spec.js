@@ -5,11 +5,10 @@ describe('Product controllers', () => {
     test('has all crud controllers', () => {
         const crud = [
             'getAllProducts',
-            'getAllProductsByVendor',
-            'getOneProduct',
             'createOneProduct',
-            'removeOneProduct',
+            'getOneProduct',
             'updateOneProduct',
+            'removeOneProduct',
         ]
 
         crud.forEach(each => {

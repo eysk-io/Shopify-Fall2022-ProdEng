@@ -4,11 +4,10 @@ describe('Product router', () => {
     test('has all crud routes', () => {
         const routes = [
             { path: '/', method: 'get' },
-            { path: '/:vendorName', method: 'get' },
-            { path: '/:vendorName', method: 'post' },
-            { path: '/:vendorName/:productName', method: 'get' },
-            { path: '/:vendorName/:productName', method: 'put' },
-            { path: '/:vendorName/:productName', method: 'delete' }
+            { path: '/', method: 'post' },
+            { path: '/:productName', method: 'get' },
+            { path: '/:productName', method: 'put' },
+            { path: '/:productName', method: 'delete' }
         ]
 
         routes.forEach(route => {

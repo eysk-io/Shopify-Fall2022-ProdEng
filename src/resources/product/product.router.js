@@ -6,14 +6,10 @@ const router = Router()
 // /api/product
 router.route('/')
     .get(controllers.getAllProducts)
-
-// /api/product/:vendorName
-router.route('/:vendorName')
-    .get(controllers.getAllProductsByVendor)
     .post(controllers.createOneProduct)
 
-// /api/product/:vendorName/:productName
-router.route('/:vendorName/:productName')
+// /api/product/:productName
+router.route('/:productName')
     .get(controllers.getOneProduct)
     .put(controllers.updateOneProduct)
     .delete(controllers.removeOneProduct)

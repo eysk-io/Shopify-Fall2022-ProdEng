@@ -7,6 +7,8 @@
     "build": "babel src --out-dir dist --copy-files",
     "start": "node dist/index.js",
     "test": "cross-env NODE_ENV=testing jest",
+    "test:resources": "cross-env NODE_ENV=testing jest -- /tests/resources/product",
+    "test:crud": "cross-env NODE_ENV=testing jest -- /tests/utils/crud",
     "dev": "nodemon --exec npm run restart",
     "restart": "rimraf dist && npm run build && npm run start"
   },

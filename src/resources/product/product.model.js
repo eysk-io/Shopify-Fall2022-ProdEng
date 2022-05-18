@@ -33,15 +33,10 @@ const productSchema = new mongoose.Schema({
     stock: {
         type: Number,
         required: true
-    },
-    vendor: {
-        type: String,
-        ref: 'vendor',
-        required: true
     }
 }, { timestamps: true }
 )
 
-productSchema.index({ vendor: 1, name: 1 }, { unique: true })
+productSchema.index({ name: 1 }, { unique: true })
 
 export const Product = mongoose.model('product', productSchema)
