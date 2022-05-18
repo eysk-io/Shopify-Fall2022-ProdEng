@@ -15,10 +15,7 @@ export const getAllProducts = productModel => async (_req, res) => {
 export const getOneProduct = productModel => async (req, res) => {
     try {
         const doc = await productModel
-            .findOne({
-                vendor: req.params.vendorName,
-                name: req.params.productName
-            })
+            .findOne({ name: req.params.productName })
             .lean()
             .exec()
 

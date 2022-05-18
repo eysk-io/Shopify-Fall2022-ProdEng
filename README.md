@@ -41,7 +41,7 @@ npm run test
 
 ## API Documentation
 
-The application is a simple CRUD API for managing vendors and their inventory. The routes are documented below.
+The application is a simple CRUD API for managing inventory. The routes are documented below.
 
 ### Routes - /api/product
 
@@ -51,7 +51,7 @@ All `/api/product` routes can be found in the [product.router.js](https://github
 Retrieves a list of all inventory items.
 
 #### POST /api/product
-Creates a new inventory item for a specific vendor.
+Creates a new inventory item.
 
 #### GET /api/product/:productName
 Retrieves a specific inventory item.
