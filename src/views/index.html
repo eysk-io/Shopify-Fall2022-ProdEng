@@ -139,7 +139,6 @@
             price,
             stock
         ) {
-            console.log("here")
             let nameEl = document.getElementById('edit-product-name')
             let descEl = document.getElementById('edit-product-description')
             let cityEl = document.getElementById('edit-product-city')
@@ -155,11 +154,11 @@
 
             document.getElementById('save-edit').onsubmit = function () {
                 const data = {
-                    name: nameEl.value,
-                    description: descEl.value,
-                    price: priceEl.value,
-                    city: cityEl.value,
-                    stock: unitsEl.value,
+                    name: nameEl.value ? name.El.value : name,
+                    description: descEl.value ? descEl.value : description,
+                    price: priceEl.value ? priceEl.value : price,
+                    city: cityEl.value ? cityEl.value : city,
+                    stock: unitsEl.value ? unitsEl.value : stock,
                 }
                 fetch(`${window.location.origin}/api/product/${name}`, {
                     method: 'PUT',
