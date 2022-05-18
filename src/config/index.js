@@ -2,7 +2,7 @@ const env = process.env.NODE_ENV || 'development'
 
 let config = {
     env,
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 4000,
     weatherApiKey: process.env.WEATHER_API_KEY
 }
 
