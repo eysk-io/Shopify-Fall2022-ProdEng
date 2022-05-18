@@ -16,17 +16,17 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    category: {
+    city: {
         type: String,
         required: true,
         enum: [
-            'books',
-            'video games',
-            'electronics',
-            'clothing',
-            'uncategorized'
+            'Vancouver',
+            'Toronto',
+            'Calgary',
+            'Waterloo',
+            'Seattle'
         ],
-        default: 'uncategorized'
+        default: 'Vancouver'
     },
     stock: {
         type: Number,

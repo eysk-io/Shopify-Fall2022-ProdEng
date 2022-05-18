@@ -56,7 +56,7 @@ describe('Product crud methods', () => {
                         expect(doc.name).toBe(`test-product${index}`)
                         expect(doc.description).toBe(`my test product${index}`)
                         expect(doc.price).toBe(index * 1.1 + 1)
-                        expect(doc.category).toBe('uncategorized')
+                        expect(doc.city).toBe('Vancouver')
                         expect(doc.stock).toBe(index * 1000)
                     })
                 }
@@ -77,7 +77,7 @@ describe('Product crud methods', () => {
                     name: 'My Test Product',
                     description: 'my test product',
                     price: 1.00,
-                    category: 'electronics',
+                    city: 'Toronto',
                     stock: 1000
                 },
             }
@@ -91,7 +91,7 @@ describe('Product crud methods', () => {
                     expect(result.data.name).toBe('my-test-product')
                     expect(result.data.description).toBe(req.body.description)
                     expect(result.data.price).toBe(req.body.price)
-                    expect(result.data.category).toBe(req.body.category)
+                    expect(result.data.city).toBe(req.body.city)
                     expect(result.data.stock).toBe(req.body.stock)
                 }
             }
@@ -115,7 +115,7 @@ describe('Product crud methods', () => {
                     name: 'My Test Product',
                     description: 'my test product',
                     price: 1.00,
-                    category: 'electronics',
+                    city: 'Toronto',
                     stock: 1000
                 },
             }
@@ -143,7 +143,7 @@ describe('Product crud methods', () => {
                     description: 'my test product0',
                     price: 1.00,
                     stock: 0,
-                    category: 'electronics',
+                    city: 'Toronto',
                 }
             )
 
@@ -160,7 +160,7 @@ describe('Product crud methods', () => {
                     expect(result.data.name).toBe(product.name)
                     expect(result.data.description).toBe(product.description)
                     expect(result.data.price).toBe(product.price)
-                    expect(result.data.category).toBe(product.category)
+                    expect(result.data.city).toBe(product.city)
                     expect(result.data.stock).toBe(product.stock)
                 }
             }
@@ -176,7 +176,7 @@ describe('Product crud methods', () => {
                     description: 'my test product0',
                     price: 1.00,
                     stock: 0,
-                    category: 'electronics',
+                    city: 'Toronto',
                 }
             )
 
@@ -207,7 +207,7 @@ describe('Product crud methods', () => {
                     description: 'my test product0',
                     price: 1.00,
                     stock: 0,
-                    category: 'electronics',
+                    city: 'Toronto',
                 }
             )
 
@@ -224,7 +224,7 @@ describe('Product crud methods', () => {
                     expect(result.data.name).toBe(product.name)
                     expect(result.data.description).toBe(product.description)
                     expect(result.data.price).toBe(product.price)
-                    expect(result.data.category).toBe(product.category)
+                    expect(result.data.city).toBe(product.city)
                     expect(result.data.stock).toBe(product.stock)
                 }
             }
@@ -240,7 +240,7 @@ describe('Product crud methods', () => {
                     description: 'my test product0',
                     price: 1.00,
                     stock: 0,
-                    category: 'electronics',
+                    city: 'Toronto',
                 }
             )
 
@@ -271,7 +271,7 @@ describe('Product crud methods', () => {
                     description: 'my test product',
                     price: 1.00,
                     stock: 0,
-                    category: 'electronics',
+                    city: 'Toronto',
                 }
             )
 
@@ -279,7 +279,7 @@ describe('Product crud methods', () => {
                 name: 'My Test Product',
                 description: 'my new description',
                 price: 2.00,
-                category: 'electronics',
+                city: 'Toronto',
                 stock: 2000,
             }
 
@@ -297,7 +297,7 @@ describe('Product crud methods', () => {
                     expect(result.data.name).toBe('my-test-product')
                     expect(result.data.description).toBe(update.description)
                     expect(result.data.price).toBe(update.price)
-                    expect(result.data.category).toBe(update.category)
+                    expect(result.data.city).toBe(update.city)
                     expect(result.data.stock).toBe(update.stock)
                 }
             }
@@ -313,7 +313,7 @@ describe('Product crud methods', () => {
                     description: 'my test product',
                     price: 1.00,
                     stock: 0,
-                    category: 'electronics',
+                    city: 'Toronto',
                 }
             )
 
@@ -321,7 +321,7 @@ describe('Product crud methods', () => {
                 name: 'My Test Product',
                 description: 'my new description',
                 price: 2.00,
-                category: 'electronics',
+                city: 'Toronto',
                 stock: 2000,
             }
 

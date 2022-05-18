@@ -29,6 +29,22 @@ describe('Product model', () => {
             })
         })
 
+        test('city', () => {
+            const city = Product.schema.obj.city
+            expect(city).toEqual({
+                type: String,
+                required: true,
+                enum: [
+                    'Vancouver',
+                    'Toronto',
+                    'Calgary',
+                    'Waterloo',
+                    'Seattle'
+                ],
+                default: 'Vancouver'
+            })
+        })
+
         test('stock', () => {
             const stock = Product.schema.obj.stock
             expect(stock).toEqual({
