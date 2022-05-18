@@ -2,8 +2,7 @@
 
 My submission for the Shopify [Production Engineering Intern](https://docs.google.com/document/d/1cgmV2DW5mEOxhh5ekyopU4Cef07FNalP7WqAJdgpBuw/edit) technical challenge.
 
-***If running on replit, please open the application on a new tab by clicking the icon as below:***
-![image](https://user-images.githubusercontent.com/42628024/169168776-4c1a2daa-753d-46c6-92fc-38504fdcc28f.png)
+Published on Replit: https://replit.com/@EricKim43/Shopify-Fall2022-ProdEng
 
 ## Requirements Completed
 
