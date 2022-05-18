@@ -6,9 +6,9 @@
   "scripts": {
     "build": "babel src --out-dir dist --copy-files",
     "start": "node dist/index.js",
-    "test": "cross-env NODE_ENV=testing jest",
-    "test:resources": "cross-env NODE_ENV=testing jest -- /tests/resources/product",
-    "test:crud": "cross-env NODE_ENV=testing jest -- /tests/utils/crud",
+    "test": "jest",
+    "test:resources": "jest -- /tests/resources/product",
+    "test:crud": "jest -- /tests/utils/crud",
     "dev": "nodemon --exec npm run restart",
     "restart": "rimraf dist && npm run build && npm run start"
   },
@@ -23,8 +23,10 @@
   },
   "homepage": "https://github.com/eyskim/Inventorify#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "body-parser": "^1.19.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.17.2",
     "lodash": "^4.17.21",
     "mongoose": "^6.1.5",
@@ -34,10 +36,9 @@
   "devDependencies": {
     "@babel/cli": "^7.16.7",
     "@babel/core": "^7.16.7",
-    "@babel/preset-env": "^7.16.7",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-proposal-object-rest-spread": "^7.16.7",
-    "cross-env": "^7.0.3",
+    "@babel/preset-env": "^7.16.7",
     "jest": "^27.4.7",
     "mongodb-memory-server": "^8.1.0",
     "nodemon": "^2.0.15"

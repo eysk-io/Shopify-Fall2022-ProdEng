@@ -52,5 +52,13 @@ describe('Product model', () => {
                 required: true
             })
         })
+
+        test('weather', () => {
+            const weather = Product.schema.obj.weather
+            expect(weather).toEqual({
+                type: String,
+                trim: true
+            })
+        })
     })
 })

@@ -1,9 +1,21 @@
+import axios from "axios"
+import config from "../../config";
+
 export const getAllProducts = productModel => async (_req, res) => {
     try {
         const doc = await productModel
             .find({})
             .lean()
             .exec()
+
+        for (let i = 0; i < doc.length; i++) {
+            const each = doc[i];
+            const apiRes = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${each.city}&units=metric&appid=${config.weatherApiKey}`)
+            const weatherDesc = apiRes.data.weather[0].description
+            const weatherTemp = apiRes.data.main.temp
+            const weatherData = `${weatherTemp} degrees celsius and ${weatherDesc}`
+            doc[i].weather = weatherData
+        }
 
         return res.status(200).json({ data: doc })
     } catch (e) {
@@ -21,6 +33,12 @@ export const getOneProduct = productModel => async (req, res) => {
 
         if (!doc)
             return res.status(400).end()
+
+        const apiRes = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${doc.city}&units=metric&appid=${config.weatherApiKey}`)
+        const weatherDesc = apiRes.data.weather[0].description
+        const weatherTemp = apiRes.data.main.temp
+        const weatherData = `${weatherTemp} degrees celsius and ${weatherDesc}`
+        doc.weather = weatherData
 
         return res.status(200).json({ data: doc })
     } catch (e) {

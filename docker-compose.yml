@@ -9,8 +9,7 @@ services:
       - /home/node/code/node_modules
     links:
       - db
-    environment:
-      MONGO_DB_URI: mongodb://db:27017
-      PORT: 4000
+    env_file:
+      - .env
   db:
     image: mongo:5

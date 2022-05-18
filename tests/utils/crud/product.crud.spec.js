@@ -58,6 +58,7 @@ describe('Product crud methods', () => {
                         expect(doc.price).toBe(index * 1.1 + 1)
                         expect(doc.city).toBe('Vancouver')
                         expect(doc.stock).toBe(index * 1000)
+                        expect(doc.weather).toBeTruthy()
                     })
                 }
             }
@@ -65,7 +66,7 @@ describe('Product crud methods', () => {
             await getAllProducts(Product)(req, res)
 
             const numProducts = 3
-            const numProperties = 5
+            const numProperties = 6
             expect.assertions(numProducts * numProperties + 2)
         })
     })
@@ -162,11 +163,12 @@ describe('Product crud methods', () => {
                     expect(result.data.price).toBe(product.price)
                     expect(result.data.city).toBe(product.city)
                     expect(result.data.stock).toBe(product.stock)
+                    expect(result.data.weather).toBeTruthy()
                 }
             }
 
             await getOneProduct(Product)(req, res)
-            expect.assertions(6)
+            expect.assertions(7)
         })
 
         test('returns 400 if product is not found', async () => {

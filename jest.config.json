@@ -3,5 +3,8 @@
     "testEnvironment": "node",
     "testPathIgnorePatterns": [
         "dist/"
+    ],
+    "setupFiles": [
+        "./jest.setup.js"
     ]
 }
