@@ -142,11 +142,12 @@
             console.log("here")
             let nameEl = document.getElementById('edit-product-name')
             let descEl = document.getElementById('edit-product-description')
-            let catEl = document.getElementById('edit-product-city')
+            let cityEl = document.getElementById('edit-product-city')
             let priceEl = document.getElementById('edit-product-price')
             let unitsEl = document.getElementById('edit-product-units')
             nameEl.value = name
             descEl.value = description
+            cityEl.value = city
             priceEl.value = price
             unitsEl.value = stock
 
@@ -157,7 +158,7 @@
                     name: nameEl.value,
                     description: descEl.value,
                     price: priceEl.value,
-                    city: catEl.value,
+                    city: cityEl.value,
                     stock: unitsEl.value,
                 }
                 fetch(`${window.location.origin}/api/product/${name}`, {
